@@ -3,7 +3,7 @@
  * @since 2021-06-20
  */
 
-#include "CoReturn.h"
+#include "UvEventLoop.h"
 
 namespace {
 void dummy() {}

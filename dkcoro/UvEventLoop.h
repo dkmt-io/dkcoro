@@ -5,13 +5,14 @@
 
 #pragma once
 
-#include <coroutine>
+#include "Uncopyable.h"
 
 namespace dkcoro {
 
-template <typename ResultType>
-class CoReturn {
+class UvEventLoop {
  public:
+ private:
+  DK_DECLARE_UNCOPYABLE(UvEventLoop);
 };
 
 }  // namespace dkcoro

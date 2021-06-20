@@ -7,8 +7,11 @@
 #include <iostream>
 
 #include "dkcoro/CoReturn.h"
+#include "dkcoro/EvEventLoop.h"
+#include "dkcoro/EventLoop.h"
 
 int main(int argc, char** argv) {
-  std::cout << "Hello, world!" << std::endl;
+  auto loop = dkcoro::EvEventLoop::Create();
+  loop->Run();
   return EXIT_SUCCESS;
 }
