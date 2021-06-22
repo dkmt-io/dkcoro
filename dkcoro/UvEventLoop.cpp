@@ -5,8 +5,17 @@
 
 #include "UvEventLoop.h"
 
-namespace {
-void dummy() {}
-}  // namespace
+namespace dkcoro {
 
-namespace dkcoro {}  // namespace dkcoro
+std::shared_ptr<UvEventLoop> UvEventLoop::Create() {
+  std::shared_ptr<UvEventLoop> self(new UvEventLoop());
+  return self;
+}
+
+UvEventLoop::UvEventLoop() {}
+
+UvEventLoop::~UvEventLoop() {}
+
+void UvEventLoop::Run() {}
+
+}  // namespace dkcoro

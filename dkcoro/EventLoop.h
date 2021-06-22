@@ -13,7 +13,14 @@ namespace dkcoro {
 
 class EventLoop {
  public:
-  static std::shared_ptr<EventLoop> Create();
+  enum class ProviderType : uint8_t {
+    EV = 1,
+    UV = 2,
+  };
+
+  static std::shared_ptr<EventLoop> Create(
+    const ProviderType type = ProviderType::UV  //
+  );
 
   virtual void Run() = 0;
 

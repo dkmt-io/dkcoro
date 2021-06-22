@@ -11,7 +11,7 @@
 #include "dkcoro/EventLoop.h"
 
 int main(int argc, char** argv) {
-  auto loop = dkcoro::EvEventLoop::Create();
+  auto loop = dkcoro::EventLoop::Create();
   loop->Run();
   return EXIT_SUCCESS;
 }
