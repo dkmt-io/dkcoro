@@ -18,15 +18,24 @@ class EvEventLoop final : public EventLoop {
  public:
   static std::shared_ptr<EvEventLoop> Create();
 
-  void Run();
+  virtual void Run() override;
 
-  ~EvEventLoop();
+  virtual std::shared_ptr<Timer> SetTimeout(
+    const Timer::Callback&, uint64_t /* clang-format off */
+  ) override; /* clang-format on */
 
- private:
+  virtual std::shared_ptr<Timer> SetInterval(
+    const Timer::Callback&, uint64_t /* clang-format off */
+  ) override; /* clang-format on */
+
+  virtual ~EvEventLoop();
+
+ protected:
   EvEventLoop();
 
   event_base* eventBase = nullptr;
 
+ private:
   DK_DECLARE_UNCOPYABLE(EvEventLoop);
 };
 

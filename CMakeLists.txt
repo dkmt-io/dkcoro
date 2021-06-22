@@ -31,12 +31,20 @@ set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(PkgConfig REQUIRED)
+
 pkg_check_modules(GFLAGS REQUIRED gflags)
 pkg_check_modules(LIBEVENT REQUIRED libevent)
 pkg_check_modules(LIBGLOG REQUIRED libglog)
 pkg_check_modules(LIBUV REQUIRED libuv)
+pkg_check_modules(GTEST REQUIRED gtest)
+pkg_check_modules(GTEST_MAIN REQUIRED gtest_main)
+pkg_check_modules(GMOCK REQUIRED gmock)
+pkg_check_modules(GMOCK_MAIN REQUIRED gmock_main)
 
 include_directories(${PROJECT_SOURCE_DIR})
 
 add_subdirectory(dkcoro)
 add_subdirectory(examples)
+
+enable_testing()
+add_subdirectory(test)

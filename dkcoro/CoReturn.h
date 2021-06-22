@@ -12,6 +12,10 @@ namespace dkcoro {
 template <typename ResultType>
 class CoReturn {
  public:
+  CoReturn() {}
+
+ protected:
+ private:
 };
 
 }  // namespace dkcoro

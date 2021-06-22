@@ -17,3 +17,7 @@ fi
 
 cmake -DUSE_GCC_11=$USE_GCC_11 -DUSE_GCC_10=$USE_GCC_10 -B build .
 cmake --build build
+
+cd build
+ctest
+cd ..
