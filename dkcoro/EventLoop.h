@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "Timer.h"
 #include "Uncopyable.h"
 
 #include <memory>
@@ -24,9 +25,20 @@ class EventLoop {
 
   virtual void Run() = 0;
 
+  virtual std::shared_ptr<Timer> SetTimeout(
+    const Timer::Callback&, uint64_t  // clang-format off
+  ) = 0;  // clang-format on
+
+  virtual std::shared_ptr<Timer> SetInterval(
+    const Timer::Callback&, uint64_t  // clang-format off
+  ) = 0;  // clang-format on
+
+  virtual ~EventLoop() {}
+
  protected:
   EventLoop() {}
 
+ private:
   DK_DECLARE_UNCOPYABLE(EventLoop);
 };
 

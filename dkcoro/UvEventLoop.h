@@ -5,10 +5,13 @@
 
 #pragma once
 
-#include <memory>
-
 #include "EventLoop.h"
+#include "Timer.h"
 #include "Uncopyable.h"
+
+#include <uv.h>
+
+#include <memory>
 
 namespace dkcoro {
 
@@ -16,13 +19,24 @@ class UvEventLoop final : public EventLoop {
  public:
   static std::shared_ptr<UvEventLoop> Create();
 
-  ~UvEventLoop();
+  virtual void Run() override;
 
-  void Run();
+  virtual std::shared_ptr<Timer> SetTimeout(
+    const Timer::Callback&, uint64_t /* clang-format off */
+  ) override; /* clang-format on */
 
- private:
+  virtual std::shared_ptr<Timer> SetInterval(
+    const Timer::Callback&, uint64_t /* clang-format off */
+  ) override; /* clang-format on */
+
+  virtual ~UvEventLoop();
+
+ protected:
   UvEventLoop();
 
+  uv_loop_t uvLoop;
+
+ private:
   DK_DECLARE_UNCOPYABLE(UvEventLoop);
 };
 

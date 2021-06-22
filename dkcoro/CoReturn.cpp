@@ -5,8 +5,4 @@
 
 #include "CoReturn.h"
 
-namespace {
-void dummy() {}
-}  // namespace
-
 namespace dkcoro {}  // namespace dkcoro

@@ -5,8 +5,16 @@ add_library(dkcoro
   EventLoop.h
   EvEventLoop.cpp
   EvEventLoop.h
+  EvTimer.cpp
+  EvTimer.h
+  Timer.cpp
+  Timer.h
+  Uncopyable.cpp
+  Uncopyable.h
   UvEventLoop.cpp
   UvEventLoop.h
+  UvTimer.cpp
+  UvTimer.h
 )
 
 target_include_directories(dkcoro PUBLIC ${GFLAGS_INCLUDE_DIRS})

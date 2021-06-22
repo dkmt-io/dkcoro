@@ -28,4 +28,18 @@ void EvEventLoop::Run() {
   event_base_dispatch(eventBase);
 }
 
+std::shared_ptr<Timer> EvEventLoop::SetTimeout(
+  const Timer::Callback& cb, uint64_t delay  //
+) {
+  std::shared_ptr<Timer> timer;
+  return timer;
+}
+
+std::shared_ptr<Timer> EvEventLoop::SetInterval(
+  const Timer::Callback& cb, uint64_t delay  //
+) {
+  std::shared_ptr<Timer> timer;
+  return timer;
+}
+
 }  // namespace dkcoro
