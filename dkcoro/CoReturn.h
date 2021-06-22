@@ -12,7 +12,7 @@ namespace dkcoro {
 template <typename ResultType>
 class CoReturn {
  public:
-  CoReturn() {}
+  class promise_type {};
 
  protected:
  private:

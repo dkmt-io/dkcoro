@@ -24,6 +24,25 @@ TEST(EventLoopTest, UvSetTimeoutTest) {
   using dkcoro::EventLoop;
   auto loop = EventLoop::Create(EventLoop::ProviderType::UV);
   LOG(INFO) << "timer begin";
-  loop->SetTimeout([]() { LOG(INFO) << "timer end"; }, 1000);
+  loop->SetTimeout([]() { LOG(INFO) << "timer end"; }, 100);
+  loop->Run();
+}
+
+TEST(EventLoopTest, UvSetIntervalTest) {
+  using dkcoro::EventLoop;
+  auto loop = EventLoop::Create(EventLoop::ProviderType::UV);
+  LOG(INFO) << "timer begin";
+  int counter = 0;
+  std::shared_ptr<dkcoro::Timer> timer;
+  timer = loop->SetInterval(
+    [&counter, &timer]() {
+      counter++;
+      LOG(INFO) << "timer fired " << counter;
+      if (counter >= 5) {
+        timer->Stop();
+      }
+    },
+    100  //
+  );
   loop->Run();
 }

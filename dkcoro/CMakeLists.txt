@@ -1,4 +1,6 @@
 add_library(dkcoro
+  CallbackAwaiter.cpp
+  CallbackAwaiter.h
   CoReturn.cpp
   CoReturn.h
   EventLoop.cpp
