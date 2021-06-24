@@ -1,22 +1,24 @@
 add_library(dkcoro
-  CallbackAwaiter.cpp
-  CallbackAwaiter.h
-  CoReturn.cpp
-  CoReturn.h
-  EventLoop.cpp
-  EventLoop.h
-  EvEventLoop.cpp
-  EvEventLoop.h
-  EvTimer.cpp
-  EvTimer.h
-  Timer.cpp
-  Timer.h
-  Uncopyable.cpp
-  Uncopyable.h
-  UvEventLoop.cpp
-  UvEventLoop.h
-  UvTimer.cpp
-  UvTimer.h
+  callback_awaiter.cpp
+  callback_awaiter.h
+  coro_return.cpp
+  coro_return.h
+  event_loop.cpp
+  event_loop.h
+  ev_event_loop.cpp
+  ev_event_loop.h
+  ev_timer.cpp
+  ev_timer.h
+  timer.cpp
+  timer.h
+  uncopyable.cpp
+  uncopyable.h
+  utils.cpp
+  utils.h
+  uv_event_loop.cpp
+  uv_event_loop.h
+  uv_timer.cpp
+  uv_timer.h
 )
 
 target_include_directories(dkcoro PUBLIC ${GFLAGS_INCLUDE_DIRS})

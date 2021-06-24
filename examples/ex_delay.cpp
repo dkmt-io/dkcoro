@@ -6,12 +6,12 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "dkcoro/CoReturn.h"
-#include "dkcoro/EvEventLoop.h"
-#include "dkcoro/EventLoop.h"
+#include "dkcoro/coro_return.h"
+#include "dkcoro/ev_event_loop.h"
+#include "dkcoro/event_loop.h"
 
 int main(int argc, char** argv) {
-  auto loop = dkcoro::EventLoop::Create();
-  loop->Run();
+  auto loop = dkcoro::event_loop::create();
+  loop->run();
   return EXIT_SUCCESS;
 }

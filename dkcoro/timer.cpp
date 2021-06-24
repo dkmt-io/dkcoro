@@ -3,10 +3,10 @@
  * @date 2021-06-22
  */
 
-#include "Timer.h"
+#include "timer.h"
 
 namespace dkcoro {  //
 
-Timer::Timer() {}
+timer::timer() {}
 
 }  // namespace dkcoro

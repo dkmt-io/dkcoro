@@ -5,34 +5,34 @@
 
 #pragma once
 
-#include "Uncopyable.h"
+#include "uncopyable.h"
 
 #include <functional>
 #include <memory>
 
 namespace dkcoro {  //
 
-class Timer {
+class timer {
  public:
-  typedef std::function<void()> Callback;
+  typedef std::function<void()> callback;
 
-  struct Options {
-    Timer::Callback cb;
+  struct options {
+    timer::callback cb;
     uint64_t delay = 0;
     bool repeat = false;
   };
 
-  virtual bool Start() = 0;
+  virtual bool start() = 0;
 
-  virtual bool Stop() = 0;
+  virtual bool stop() = 0;
 
-  virtual ~Timer() {}
+  virtual ~timer() {}
 
  protected:
-  Timer();
+  timer();
 
  private:
-  DK_DECLARE_UNCOPYABLE(Timer);
+  DK_DECLARE_UNCOPYABLE(timer);
 };
 
 }  // namespace dkcoro
