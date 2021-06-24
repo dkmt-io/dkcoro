@@ -8,6 +8,8 @@
 #include "timer.h"
 #include "uncopyable.h"
 
+#include <event2/event.h>
+
 namespace dkcoro {  //
 
 class ev_timer final : public timer {

@@ -6,7 +6,6 @@
 #include "delay.h"
 
 #include "async_awaiter.h"
-#include "utils.h"
 
 #include <stdint.h>
 #include <utility>
