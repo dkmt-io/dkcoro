@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "coro_return.h"
 #include "timer.h"
 #include "uncopyable.h"
 
@@ -32,6 +33,8 @@ class event_loop {
   virtual std::shared_ptr<timer> set_interval(
     const timer::callback&, uint64_t  // clang-format off
   ) = 0;  // clang-format on
+
+  virtual coro_return<> delay(int64_t ms) final;
 
   virtual ~event_loop() {}
 

@@ -13,6 +13,6 @@
 
 namespace dkcoro {  //
 
-coro_return<> delay(const std::shared_ptr<event_loop>& loop, int64_t ms);
+coro_return<> delay(event_loop& loop, int64_t ms);
 
 }  // namespace dkcoro

@@ -19,7 +19,7 @@
 dkcoro::coro_return<> coro_main(std::shared_ptr<dkcoro::event_loop> loop) {
   for (int i = 0; i < 10; i++) {
     LOG(INFO) << "heartbeat #" << i;
-    co_await dkcoro::delay(loop, 1000);
+    co_await loop->delay(1000);
   }
   co_return;
 }

@@ -5,6 +5,7 @@
 
 #include "event_loop.h"
 
+#include "delay.h"
 #include "ev_event_loop.h"
 #include "uv_event_loop.h"
 
@@ -26,6 +27,11 @@ std::shared_ptr<event_loop> event_loop::create(const type type) {
       break;
   }
   return result;
+}
+
+coro_return<> event_loop::delay(int64_t ms) {
+  co_await dkcoro::delay(*this, ms);
+  co_return;
 }
 
 }  // namespace dkcoro

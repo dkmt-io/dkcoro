@@ -13,10 +13,10 @@
 namespace dkcoro {  //
 
 coro_return<> delay(
-  const std::shared_ptr<event_loop>& loop, int64_t ms  //
+  event_loop& loop, int64_t ms  //
 ) {
-  async_awaiter<>::async_action action = [loop, ms](auto cb) {
-    loop->set_timeout(cb, ms);
+  async_awaiter<>::async_action action = [&loop, ms](auto cb) {
+    loop.set_timeout(cb, ms);
   };
   auto awaiter_ptr = dkcoro::async_awaiter<>::create(action);
   dkcoro::async_awaiter<>& awaiter = *awaiter_ptr;
