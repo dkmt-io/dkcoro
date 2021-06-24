@@ -1,4 +1,2 @@
-add_executable(ex_delay
-  ex_delay.cpp
-)
-target_link_libraries(ex_delay dkcoro)
+add_executable(example_delay example_delay.cpp)
+target_link_libraries(example_delay dkcoro)

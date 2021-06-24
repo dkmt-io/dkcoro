@@ -1,6 +1,6 @@
 add_library(dkcoro
-  callback_awaiter.cpp
-  callback_awaiter.h
+  async_awaiter.cpp
+  async_awaiter.h
   coro_return.cpp
   coro_return.h
   delay.cpp

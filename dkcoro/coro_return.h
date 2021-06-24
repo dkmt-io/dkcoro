@@ -89,7 +89,9 @@ class coro_return final {
       }
 
       bool await_ready() {
+        CHECK(!m_await_ready_called);
         CHECK_NOTNULL(m_coro_return->m_result_holder);
+        m_await_ready_called = true;
         bool ready = m_coro_return->m_result_holder->result_ready;
         if (ready) {
           m_coro_return->m_promise = nullptr;
@@ -110,6 +112,79 @@ class coro_return final {
      private:
       bool m_await_ready_called = false;
       coro_return<T>* m_coro_return;
+    };
+    return awaiter(this);
+  }
+
+ private:
+  promise_type* m_promise;
+  std::shared_ptr<result_holder> m_result_holder;
+};
+
+template <typename T = void>
+class coro_return;
+
+template <>
+class coro_return<void> {
+ public:
+  struct result_holder {
+    bool result_ready = false;
+  };
+
+  class promise_type {
+   public:
+    coro_return<> get_return_object();
+
+    std::suspend_never initial_suspend();
+
+    std::suspend_never final_suspend() noexcept;
+
+    void unhandled_exception();
+
+    void return_void();
+
+    void set_awaiter_coro(const std::coroutine_handle<>& coro);
+
+    void set_result_holder(const std::shared_ptr<result_holder>& holder);
+
+   private:
+    std::weak_ptr<result_holder> m_result_holder;
+    std::coroutine_handle<> m_awaiter_coro;
+  };
+
+  coro_return(promise_type* promise);
+
+  decltype(auto) operator co_await() {
+    class awaiter {
+     public:
+      awaiter(coro_return<>* r) : m_coro_return(r) {
+        CHECK_NOTNULL(m_coro_return);
+      }
+
+      bool await_ready() {
+        CHECK(!m_await_ready_called);
+        CHECK_NOTNULL(m_coro_return->m_result_holder);
+        m_await_ready_called = true;
+        bool ready = m_coro_return->m_result_holder->result_ready;
+        if (ready) {
+          m_coro_return->m_promise = nullptr;
+        }
+        return ready;
+      }
+
+      void await_suspend(std::coroutine_handle<> coro) {
+        m_coro_return->m_promise->set_awaiter_coro(coro);
+      }
+
+      void await_resume() {
+        CHECK_NOTNULL(m_coro_return->m_result_holder);
+        CHECK(m_coro_return->m_result_holder->result_ready);
+        return;
+      }
+
+     private:
+      bool m_await_ready_called = false;
+      coro_return<>* m_coro_return;
     };
     return awaiter(this);
   }

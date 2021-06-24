@@ -3,7 +3,7 @@
  * @since 2021-06-20
  */
 
-#include "dkcoro/callback_awaiter.h"
+#include "dkcoro/async_awaiter.h"
 #include "dkcoro/coro_return.h"
 #include "dkcoro/delay.h"
 #include "dkcoro/event_loop.h"
@@ -16,12 +16,12 @@
 #include <iostream>
 #include <memory>
 
-dkcoro::coro_return<bool> coro_main(std::shared_ptr<dkcoro::event_loop> loop) {
+dkcoro::coro_return<> coro_main(std::shared_ptr<dkcoro::event_loop> loop) {
   for (int i = 0; i < 10; i++) {
     LOG(INFO) << "heartbeat #" << i;
     co_await dkcoro::delay(loop, 1000);
   }
-  co_return true;
+  co_return;
 }
 
 int main(int argc, char** argv) {
