@@ -3,15 +3,33 @@
  * @since 2021-06-20
  */
 
+#include "dkcoro/callback_awaiter.h"
+#include "dkcoro/coro_return.h"
+#include "dkcoro/delay.h"
+#include "dkcoro/event_loop.h"
+#include "dkcoro/utils.h"
+
+#include <gflags/gflags.h>
+#include <glog/logging.h>
+
 #include <stdlib.h>
 #include <iostream>
+#include <memory>
 
-#include "dkcoro/coro_return.h"
-#include "dkcoro/ev_event_loop.h"
-#include "dkcoro/event_loop.h"
+dkcoro::coro_return<bool> coro_main(std::shared_ptr<dkcoro::event_loop> loop) {
+  for (int i = 0; i < 10; i++) {
+    LOG(INFO) << "heartbeat #" << i;
+    co_await dkcoro::delay(loop, 1000);
+  }
+  co_return true;
+}
 
 int main(int argc, char** argv) {
+  GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
+  GFLAGS_NAMESPACE::SetCommandLineOption("logtostderr", "true");
+  google::InitGoogleLogging(argv[0]);
   auto loop = dkcoro::event_loop::create();
+  coro_main(loop);
   loop->run();
   return EXIT_SUCCESS;
 }

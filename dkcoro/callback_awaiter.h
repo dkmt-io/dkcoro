@@ -16,7 +16,8 @@
 namespace dkcoro {
 
 template <typename T>
-class callback_awaiter final {
+class callback_awaiter final
+  : public std::enable_shared_from_this<callback_awaiter<T>> {
  public:
   typedef std::function<void(T&&)> read_callback;
   typedef std::function<void(const read_callback&)> read_action;
@@ -64,9 +65,6 @@ class callback_awaiter final {
   std::coroutine_handle<> m_coro;
   T m_result;
   bool m_result_ready = false;
-
- private:
-  DK_DECLARE_UNCOPYABLE(callback_awaiter);
 };
 
 }  // namespace dkcoro

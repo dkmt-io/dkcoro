@@ -73,9 +73,11 @@ class coro_return final {
     std::coroutine_handle<> m_awaiter_coro;
   };
 
-  coro_return(promise_type* promise) : m_promise(promise) {
+  coro_return(promise_type* promise) :
+    m_promise(promise),
+    m_result_holder(new result_holder())  //
+  {
     CHECK_NOTNULL(m_promise);
-    m_result_holder = new result_holder();
     m_promise->set_result_holder(m_result_holder);
   }
 
@@ -90,13 +92,13 @@ class coro_return final {
         CHECK_NOTNULL(m_coro_return->m_result_holder);
         bool ready = m_coro_return->m_result_holder->result_ready;
         if (ready) {
-          m_promise = nullptr;
+          m_coro_return->m_promise = nullptr;
         }
         return ready;
       }
 
-      void await_suspend(std::coroutine_handle<> c) {
-        m_coro_return.promise.set_awaiter_coro(c);
+      void await_suspend(std::coroutine_handle<> coro) {
+        m_coro_return->m_promise->set_awaiter_coro(coro);
       }
 
       T& await_resume() {

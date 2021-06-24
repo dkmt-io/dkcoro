@@ -19,24 +19,25 @@ cmake                      \
   -DUSE_GCC_11=$USE_GCC_11 \
   -DUSE_GCC_10=$USE_GCC_10 \
   -DCMAKE_BUILD_TYPE=Debug \
-  -B build/debug .
-cmake --build build/debug
+  -B build_debug .
+cmake --build build_debug
 
 cmake                        \
   -DUSE_GCC_11=$USE_GCC_11   \
   -DUSE_GCC_10=$USE_GCC_10   \
   -DCMAKE_BUILD_TYPE=Release \
-  -B build/release .
-cmake --build build/release
+  -B build_release .
+cmake --build build_release
 
 cmake                      \
   -DUSE_GCC_11=$USE_GCC_11 \
   -DUSE_GCC_10=$USE_GCC_10 \
   -DCMAKE_BUILD_TYPE=Debug \
   -DUSE_ASAN=1             \
-  -B build/asan .
-cmake --build build/asan
+  -B build .
+cmake --build build
 
-cd build/asan
+cd build
 ctest
-cd ../..
+cd ..
+ 

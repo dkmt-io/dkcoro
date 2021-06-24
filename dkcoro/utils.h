@@ -5,4 +5,17 @@
 
 #pragma once
 
-namespace dkcoro {}  // namespace dkcoro
+#include <stdint.h>
+
+namespace dkcoro {
+
+class utils final {
+ public:
+  static int64_t current_time_millis();
+
+  static int64_t now();
+
+  static int64_t nano_time();
+};
+
+}  // namespace dkcoro
