@@ -19,11 +19,10 @@ std::shared_ptr<uv_timer> uv_timer::create(
 uv_timer::uv_timer(const timer::options& options, uv_loop_t* loop) :
   m_cb(options.cb),
   m_delay(options.delay),
-  m_repeat(options.repeat),
-  m_uv_loop(loop)  //
+  m_repeat(options.repeat)  //
 {
-  CHECK_NOTNULL(m_uv_loop);
-  int rc = uv_timer_init(m_uv_loop, &m_uv_handle.timer);
+  CHECK_NOTNULL(loop);
+  int rc = uv_timer_init(loop, &m_uv_handle.timer);
   CHECK(rc == 0);
   m_uv_handle.timer.data = this;
 }

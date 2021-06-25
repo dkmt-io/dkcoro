@@ -5,6 +5,8 @@
 
 #include "ev_event_loop.h"
 
+#include "ev_timer.h"
+
 #include <glog/logging.h>
 
 namespace dkcoro {
@@ -31,14 +33,22 @@ void ev_event_loop::run() {
 std::shared_ptr<timer> ev_event_loop::set_timeout(
   const timer::callback& cb, uint64_t delay  //
 ) {
-  std::shared_ptr<timer> timer;
+  auto timer = ev_timer::create(
+    {.cb = cb, .delay = delay, .repeat = false}, m_event_base  //
+  );
+  bool success = timer->start();
+  CHECK(success);
   return timer;
 }
 
 std::shared_ptr<timer> ev_event_loop::set_interval(
   const timer::callback& cb, uint64_t delay  //
 ) {
-  std::shared_ptr<timer> timer;
+  auto timer = ev_timer::create(
+    {.cb = cb, .delay = delay, .repeat = true}, m_event_base  //
+  );
+  bool success = timer->start();
+  CHECK(success);
   return timer;
 }
 

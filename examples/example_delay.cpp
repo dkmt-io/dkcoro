@@ -16,6 +16,8 @@
 #include <iostream>
 #include <memory>
 
+DEFINE_int32(event_loop_type, 1, "event loop type. 1: libevent, 2: libuv.");
+
 dkcoro::coro_return<> coro_main(std::shared_ptr<dkcoro::event_loop> loop) {
   for (int i = 0; i < 10; i++) {
     LOG(INFO) << "heartbeat #" << i;
@@ -25,10 +27,25 @@ dkcoro::coro_return<> coro_main(std::shared_ptr<dkcoro::event_loop> loop) {
 }
 
 int main(int argc, char** argv) {
+  using dkcoro::event_loop;
   GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
   GFLAGS_NAMESPACE::SetCommandLineOption("logtostderr", "true");
   google::InitGoogleLogging(argv[0]);
-  auto loop = dkcoro::event_loop::create();
+  std::shared_ptr<event_loop> loop;
+  switch (FLAGS_event_loop_type) {
+    case 1:  // libevent
+      loop = event_loop::create(event_loop::type::EV);
+      LOG(INFO) << "using libevent";
+      break;
+    case 2:  // libuv
+      loop = event_loop::create(event_loop::type::UV);
+      LOG(INFO) << "using libuv";
+      break;
+    default:
+      LOG(ERROR) << "invalid event loop type " << FLAGS_event_loop_type;
+      return EXIT_FAILURE;
+      break;
+  }
   coro_main(loop);
   loop->run();
   return EXIT_SUCCESS;

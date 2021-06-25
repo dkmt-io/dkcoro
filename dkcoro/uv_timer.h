@@ -36,7 +36,6 @@ class uv_timer final : public timer,
   bool m_finished = false;
   std::shared_ptr<uv_timer> m_self;
   const bool m_repeat;
-  uv_loop_t* m_uv_loop = nullptr;
   uv_any_handle m_uv_handle;
 
   static void close_cb(uv_handle_t* handle);
